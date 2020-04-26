@@ -1,0 +1,19 @@
+{
+  "name": "coinhub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MAHolzbach/coinhub.git"
+  },
+  "author": "Mike Holzbach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MAHolzbach/coinhub/issues"
+  },
+  "homepage": "https://github.com/MAHolzbach/coinhub#readme"
+}
