@@ -4,10 +4,9 @@ import "./header.scss";
 
 const Header = () => {
   const context = useContext(AppContext);
-  const currency = context.currency;
   return (
     <div>
-      <p className="currency-name">{currency}</p>
+      <h1 className="app-name">CoinHub</h1>
     </div>
   );
 };
