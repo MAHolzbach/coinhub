@@ -11,7 +11,7 @@ const Followed = () => {
     return (
       <>
         {currenciesFollowed.map((currency) => (
-          <CurrencyBox currency={currency} />
+          <CurrencyBox currency={currency.name} icon={currency.icon} />
         ))}
       </>
     );

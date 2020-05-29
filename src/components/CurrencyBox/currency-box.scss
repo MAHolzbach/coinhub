@@ -3,4 +3,10 @@
 .currency-box {
   background-color: $base-white;
   border-radius: 4px;
+  display: flex;
+}
+
+.currency-box__icon {
+  width: 30px;
+  height: 30px;
 }
