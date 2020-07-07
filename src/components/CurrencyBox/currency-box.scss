@@ -3,10 +3,37 @@
 .currency-box {
   background-color: $base-white;
   border-radius: 4px;
+  width: 400px;
+  padding: 24px;
+}
+
+.currency-box__header {
   display: flex;
+  justify-content: space-between;
 }
 
 .currency-box__icon {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
+}
+
+.currency-box__timeframe {
+  justify-self: flex-end;
+}
+
+.currency-box__price-row {
+  display: flex;
+  align-items: flex-end;
+}
+
+.currency-box__text {
+  margin: 0;
+}
+
+.currency-box__price {
+  font-size: 36px;
+}
+
+.currency-box__percent {
+  font-size: 24px;
 }

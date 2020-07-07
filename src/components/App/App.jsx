@@ -11,9 +11,24 @@ export const AppContext = React.createContext(null);
 const App = () => {
   const [appState, setAppState] = useState({
     currenciesFollowed: [
-      { name: "Bitcoin", icon: BitcoinIcon },
-      { name: "Etherium", icon: EtheriumIcon },
-      { name: "Litecoin", icon: LitecoinIcon },
+      {
+        name: "Bitcoin",
+        icon: BitcoinIcon,
+        price: "3,123.45",
+        percentChange: "0.78",
+      },
+      {
+        name: "Etherium",
+        icon: EtheriumIcon,
+        price: "3,123.45",
+        percentChange: "0.78",
+      },
+      {
+        name: "Litecoin",
+        icon: LitecoinIcon,
+        price: "3,123.45",
+        percentChange: "0.78",
+      },
     ],
   });
 
