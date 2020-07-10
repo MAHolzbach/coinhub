@@ -4,11 +4,7 @@ import "./header.scss";
 
 const Header = () => {
   const context = useContext(AppContext);
-  return (
-    <div>
-      <h1 className="app-name">CoinHub</h1>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Header;

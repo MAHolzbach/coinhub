@@ -1,4 +1,13 @@
+.followed-wrapper {
+  padding: 0 36px;
+}
+
+.followed-wrapper__title {
+  font-size: 24px;
+}
+
 .currency-box__wrapper {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
