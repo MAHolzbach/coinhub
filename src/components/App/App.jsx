@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
 import "./app.scss";
@@ -49,6 +50,20 @@ const App = () => {
       },
     ],
   });
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=1",
+        {
+          headers: {
+            "X-CoinAPI-Key": process.env.COINAPIKEY,
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res.data[0]));
+  }, []);
 
   return (
     <AppContext.Provider value={appState}>
