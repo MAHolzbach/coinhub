@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
@@ -10,46 +10,56 @@ import LitecoinIcon from "../../img/litecoin-icon.png";
 export const AppContext = React.createContext(null);
 
 const App = () => {
-  const [appState, setAppState] = useState({
-    currenciesFollowed: [
-      {
-        name: "Bitcoin",
-        icon: BitcoinIcon,
-        price: "3,123.45",
-        percentChange: "0.78",
-      },
-      {
-        name: "Etherium",
-        icon: EtheriumIcon,
-        price: "3,123.45",
-        percentChange: "0.78",
-      },
-      {
-        name: "Litecoin",
-        icon: LitecoinIcon,
-        price: "3,123.45",
-        percentChange: "0.78",
-      },
-      {
-        name: "Bitcoin",
-        icon: BitcoinIcon,
-        price: "3,123.45",
-        percentChange: "0.78",
-      },
-      {
-        name: "Etherium",
-        icon: EtheriumIcon,
-        price: "3,123.45",
-        percentChange: "0.78",
-      },
-      {
-        name: "Litecoin",
-        icon: LitecoinIcon,
-        price: "3,123.45",
-        percentChange: "0.78",
-      },
-    ],
-  });
+  const [appState, dispatch] = useReducer(
+    (state, action) => {
+      switch (action.type) {
+        case "updateValues":
+          let newCurrencyArray = [...state.currenciesFollowed];
+          newCurrencyArray[0].price = action.price;
+          return { ...state };
+      }
+    },
+    {
+      currenciesFollowed: [
+        {
+          name: "Bitcoin",
+          icon: BitcoinIcon,
+          price: "3,123.45",
+          percentChange: "0.78",
+        },
+        {
+          name: "Etherium",
+          icon: EtheriumIcon,
+          price: "3,123.45",
+          percentChange: "0.78",
+        },
+        {
+          name: "Litecoin",
+          icon: LitecoinIcon,
+          price: "3,123.45",
+          percentChange: "0.78",
+        },
+        {
+          name: "Bitcoin",
+          icon: BitcoinIcon,
+          price: "3,123.45",
+          percentChange: "0.78",
+        },
+        {
+          name: "Etherium",
+          icon: EtheriumIcon,
+          price: "3,123.45",
+          percentChange: "0.78",
+        },
+        {
+          name: "Litecoin",
+          icon: LitecoinIcon,
+          price: "3,123.45",
+          percentChange: "0.78",
+        },
+      ],
+    }
+  );
 
   useEffect(() => {
     axios
@@ -62,7 +72,9 @@ const App = () => {
           },
         }
       )
-      .then((res) => console.log(res.data[0]));
+      .then((res) => {
+        dispatch({ type: "updateValues", price: res.data[0].price_close });
+      });
   }, []);
 
   return (
