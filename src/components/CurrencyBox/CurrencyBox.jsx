@@ -11,8 +11,17 @@ const CurrencyBox = ({ currency, icon, price, percentChange }) => {
       </div>
       <div className="currency-box__price-row">
         <p className="currency-box__text currency-box__price">${price}</p>
-        <p className="currency-box__text currency-box__percent">
-          {percentChange}%
+        <p
+          className={`currency-box__text currency-box__percent ${
+            percentChange.plusOrMinus === "+"
+              ? "positive-color"
+              : "negative-color"
+          }`}
+        >
+          <span className="currency-box__text currency-box__percent__plusminus">
+            {percentChange.plusOrMinus}
+          </span>
+          {percentChange.change}%
         </p>
       </div>
     </div>

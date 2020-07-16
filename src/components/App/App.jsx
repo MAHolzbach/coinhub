@@ -11,42 +11,45 @@ export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
+    allowFetches: true,
     currenciesFollowed: [
       {
         name: "Bitcoin",
+        coinId: "BITSTAMP_SPOT_BTC_USD",
         icon: BitcoinIcon,
         price: "----.--",
-        percentChange: "0.78",
+        plusOrMinus: "",
+        percentChange: "-.--",
       },
       {
         name: "Etherium",
         icon: EtheriumIcon,
         price: "----.--",
-        percentChange: "0.78",
+        percentChange: "-.--",
       },
       {
         name: "Litecoin",
         icon: LitecoinIcon,
         price: "----.--",
-        percentChange: "0.78",
+        percentChange: "-.--",
       },
       {
         name: "Bitcoin",
         icon: BitcoinIcon,
         price: "----.--",
-        percentChange: "0.78",
+        percentChange: "-.--",
       },
       {
         name: "Etherium",
         icon: EtheriumIcon,
         price: "----.--",
-        percentChange: "0.78",
+        percentChange: "-.--",
       },
       {
         name: "Litecoin",
         icon: LitecoinIcon,
         price: "----.--",
-        percentChange: "0.78",
+        percentChange: "-.--",
       },
     ],
   };
@@ -57,57 +60,55 @@ const App = () => {
         let newCurrencyArray = [...state.currenciesFollowed];
         newCurrencyArray[0].price = action.price;
         newCurrencyArray[0].percentChange = action.percentageChange;
+        newCurrencyArray[0].plusOrMinus = action.plusOrMinus;
         return { ...state };
     }
   };
 
   const [appState, setAppState] = useReducer(reducer, initialState);
 
-  const calcPriceDifference = (priceA, priceB) => {
+  const calcPriceDifference = (a, b) => {
     let percentageChange;
+    let plusOrMinus;
 
-    const calcIncrease = () => {
-      return ((priceA - priceB) / priceA) * 100;
+    const calcDiff = (a, b) => {
+      return ((a - b) / a) * 100;
     };
 
-    const calcDecrease = () => {
-      return ((priceB - priceA) / priceB) * 100;
-    };
-
-    priceA > priceB
-      ? (percentageChange = calcIncrease())
-      : (percentageChange = calcDecrease());
-    return percentageChange.toFixed(2);
+    a > b
+      ? ((percentageChange = calcDiff(a, b)), (plusOrMinus = "+"))
+      : ((percentageChange = calcDiff(b, a)), (plusOrMinus = "-"));
+    return { change: percentageChange.toFixed(2), plusOrMinus };
   };
 
   useEffect(() => {
-    // axios
-    //   .get(
-    //     "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=2",
-    //     {
-    //       headers: {
-    //         "X-CoinAPI-Key": process.env.COINAPIKEY,
-    //         Accept: "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    // console.log(res.data);
-    setAppState({
-      type: "updateValues",
-      price: 9051.44,
-      percentageChange: calcPriceDifference(9051.44, 9102.11),
-    });
-    // console.log(res.data);
-    // setAppState({
-    //   type: "updateValues",
-    //   price: res.data[0].price_close,
-    //   percentageChange: calcPriceDifference(
-    //     res.data[0].price_close,
-    //     res.data[1].price_close
-    //   ),
-    // });
-    // });
+    initialState.allowFetches
+      ? axios
+          .get(
+            "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=2",
+            {
+              headers: {
+                "X-CoinAPI-Key": process.env.COINAPIKEY,
+                Accept: "application/json",
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            setAppState({
+              type: "updateValues",
+              price: res.data[0].price_close,
+              percentageChange: calcPriceDifference(
+                res.data[0].price_close,
+                res.data[1].price_close
+              ),
+            });
+          })
+      : setAppState({
+          type: "updateValues",
+          price: 9051.44,
+          percentageChange: calcPriceDifference(9251.44, 9102.11),
+        });
   }, []);
 
   return (
