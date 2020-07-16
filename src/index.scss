@@ -1,12 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
-$base-black: #18191d;
+$base-gray: #f1f4ff;
+$text-black: #464849;
+$base-white: #ffffff;
 
 html,
 body {
   height: 100vh;
   width: 100vw;
-  background-color: $base-black;
+  color: $text-black;
+  letter-spacing: 1px;
+  background-color: $base-gray;
   overflow: hidden;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto";
 }

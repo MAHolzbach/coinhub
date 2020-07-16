@@ -1,0 +1,60 @@
+@import "../../index.scss";
+
+.currency-box {
+  background-color: $base-white;
+  border-radius: 8px;
+  width: 400px;
+  padding: 24px;
+  margin: 12px 24px;
+}
+
+.currency-box__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.currency-box__icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 18px;
+}
+
+.currency-box__title {
+  font-size: 24px;
+}
+
+.currency-box__timeframe {
+  margin-left: auto;
+  background-color: #efefef;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.currency-box__price-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.currency-box__text {
+  margin: 0;
+}
+
+.currency-box__price {
+  font-size: 36px;
+  font-weight: 500;
+  margin-right: 18px;
+}
+
+.currency-box__percent {
+  font-size: 24px;
+}
+
+.positive-color {
+  color: #83cecf;
+}
+
+.negative-color {
+  color: #bd6666;
+}
