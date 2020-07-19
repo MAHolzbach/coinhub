@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
 import "./app.scss";
 import BitcoinIcon from "../../img/bitcoin-icon.png";
-import EtheriumIcon from "../../img/ethereum-icon.png";
+import EthereumIcon from "../../img/ethereum-icon.png";
 import LitecoinIcon from "../../img/litecoin-icon.png";
 
 export const AppContext = React.createContext(null);
@@ -15,40 +15,29 @@ const App = () => {
     currenciesFollowed: [
       {
         name: "Bitcoin",
-        coinId: "BITSTAMP_SPOT_BTC_USD",
+        coinId: "BTC",
+        assetId: "USD",
         icon: BitcoinIcon,
         price: "----.--",
         plusOrMinus: "",
         percentChange: "-.--",
       },
       {
-        name: "Etherium",
-        icon: EtheriumIcon,
+        name: "Ethereum",
+        coinId: "ETH",
+        assetId: "USD",
+        icon: EthereumIcon,
         price: "----.--",
+        plusOrMinus: "",
         percentChange: "-.--",
       },
       {
         name: "Litecoin",
+        coinId: "LTC",
+        assetId: "USD",
         icon: LitecoinIcon,
         price: "----.--",
-        percentChange: "-.--",
-      },
-      {
-        name: "Bitcoin",
-        icon: BitcoinIcon,
-        price: "----.--",
-        percentChange: "-.--",
-      },
-      {
-        name: "Etherium",
-        icon: EtheriumIcon,
-        price: "----.--",
-        percentChange: "-.--",
-      },
-      {
-        name: "Litecoin",
-        icon: LitecoinIcon,
-        price: "----.--",
+        plusOrMinus: "",
         percentChange: "-.--",
       },
     ],
@@ -58,9 +47,9 @@ const App = () => {
     switch (action.type) {
       case "updateValues":
         let newCurrencyArray = [...state.currenciesFollowed];
-        newCurrencyArray[0].price = action.price;
-        newCurrencyArray[0].percentChange = action.percentageChange;
-        newCurrencyArray[0].plusOrMinus = action.plusOrMinus;
+        newCurrencyArray[action.index].price = action.price;
+        newCurrencyArray[action.index].percentChange = action.percentageChange;
+        newCurrencyArray[action.index].plusOrMinus = action.plusOrMinus;
         return { ...state };
     }
   };
@@ -82,33 +71,36 @@ const App = () => {
   };
 
   useEffect(() => {
-    initialState.allowFetches
-      ? axios
-          .get(
-            "https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=1DAY&limit=2",
-            {
-              headers: {
-                "X-CoinAPI-Key": process.env.COINAPIKEY,
-                Accept: "application/json",
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res.data);
-            setAppState({
-              type: "updateValues",
-              price: res.data[0].price_close,
-              percentageChange: calcPriceDifference(
-                res.data[0].price_close,
-                res.data[1].price_close
-              ),
-            });
-          })
-      : setAppState({
-          type: "updateValues",
-          price: 9051.44,
-          percentageChange: calcPriceDifference(9251.44, 9102.11),
-        });
+    appState.currenciesFollowed.map((currency, index) => {
+      initialState.allowFetches
+        ? axios
+            .get(
+              `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=2`,
+              {
+                headers: {
+                  "X-CoinAPI-Key": process.env.COINAPIKEY,
+                  Accept: "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              console.log("RES.DATA:", res.data);
+              setAppState({
+                type: "updateValues",
+                price: res.data[0].price_close,
+                percentageChange: calcPriceDifference(
+                  res.data[0].price_close,
+                  res.data[1].price_close
+                ),
+                index: index,
+              });
+            })
+        : setAppState({
+            type: "updateValues",
+            price: 9251.44,
+            percentageChange: calcPriceDifference(9251.44, 9102.11),
+          });
+    });
   }, []);
 
   return (
