@@ -6,12 +6,15 @@ import "./app.scss";
 import BitcoinIcon from "../../img/bitcoin-icon.png";
 import EthereumIcon from "../../img/ethereum-icon.png";
 import LitecoinIcon from "../../img/litecoin-icon.png";
+import BitcoinCashIcon from "../../img/bitcoincash-icon.png";
+import RippleIcon from "../../img/ripple-icon.png";
+import EosIcon from "../../img/eos-icon.png";
 
 export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
-    allowFetches: true,
+    allowFetches: false,
     currenciesFollowed: [
       {
         name: "Bitcoin",
@@ -36,6 +39,33 @@ const App = () => {
         coinId: "LTC",
         assetId: "USD",
         icon: LitecoinIcon,
+        price: "----.--",
+        plusOrMinus: "",
+        percentChange: "-.--",
+      },
+      {
+        name: "Bitcoin Cash",
+        coinId: "BCH",
+        assetId: "USD",
+        icon: BitcoinCashIcon,
+        price: "----.--",
+        plusOrMinus: "",
+        percentChange: "-.--",
+      },
+      {
+        name: "Ripple (XRP)",
+        coinId: "XRP",
+        assetId: "USD",
+        icon: RippleIcon,
+        price: "----.--",
+        plusOrMinus: "",
+        percentChange: "-.--",
+      },
+      {
+        name: "EOS",
+        coinId: "EOS",
+        assetId: "USD",
+        icon: EosIcon,
         price: "----.--",
         plusOrMinus: "",
         percentChange: "-.--",
@@ -99,6 +129,7 @@ const App = () => {
             type: "updateValues",
             price: 9251.44,
             percentageChange: calcPriceDifference(9251.44, 9102.11),
+            index: index,
           });
     });
   }, []);
