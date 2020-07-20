@@ -6,11 +6,11 @@ $base-white: #ffffff;
 
 html,
 body {
-  height: 100vh;
+  // height: 100vh;
   width: 100vw;
   color: $text-black;
   letter-spacing: 1px;
   background-color: $base-gray;
-  overflow: hidden;
+  // overflow: hidden;
   font-family: "Roboto";
 }

@@ -2,6 +2,7 @@ import React, { useState, useReducer, useEffect } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
+import Portfolio from "../portfolio/Portfolio";
 import "./app.scss";
 import BitcoinIcon from "../../img/bitcoin-icon.png";
 import EthereumIcon from "../../img/ethereum-icon.png";
@@ -139,6 +140,7 @@ const App = () => {
       <div>
         <Header />
         <Followed />
+        <Portfolio />
       </div>
     </AppContext.Provider>
   );
