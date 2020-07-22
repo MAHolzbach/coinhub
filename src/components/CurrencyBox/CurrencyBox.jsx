@@ -5,7 +5,7 @@ const CurrencyBox = ({ currency, icon, price, percentChange }) => {
   return (
     <div className="currency-box">
       <div className="currency-box__header">
-        <img className="currency-box__icon" src={icon} alt="bitcoin" />
+        <img className="currency-box__icon" src={icon} alt="icon" />
         <p className="currency-box__title">{currency}</p>
         <p className="currency-box__timeframe">24hr</p>
       </div>

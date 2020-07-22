@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
 import Portfolio from "../portfolio/Portfolio";
 import Recent from "../recent/Recent";
+import Error from "../Error/Error";
 import "./app.scss";
 import BitcoinIcon from "../../img/bitcoin-icon.png";
 import EthereumIcon from "../../img/ethereum-icon.png";
@@ -27,6 +28,7 @@ const App = () => {
         icon: BitcoinIcon,
         price: "----.--",
         percentChange: "-.--",
+        quantity: 2.3412,
         history: [],
       },
       {
@@ -36,6 +38,7 @@ const App = () => {
         icon: EthereumIcon,
         price: "----.--",
         percentChange: "-.--",
+        quantity: 12.33,
         history: [],
       },
       {
@@ -45,6 +48,7 @@ const App = () => {
         icon: LitecoinIcon,
         price: "----.--",
         percentChange: "-.--",
+        quantity: 5.3311,
         history: [],
       },
       {
@@ -54,6 +58,7 @@ const App = () => {
         icon: BitcoinCashIcon,
         price: "----.--",
         percentChange: "-.--",
+        quantity: 111.33,
         history: [],
       },
       {
@@ -63,6 +68,7 @@ const App = () => {
         icon: RippleIcon,
         price: "----.--",
         percentChange: "-.--",
+        quantity: 0.33,
         history: [],
       },
       {
@@ -72,6 +78,7 @@ const App = () => {
         icon: EosIcon,
         price: "----.--",
         percentChange: "-.--",
+        quantity: 22.1133,
         history: [],
       },
     ],
@@ -90,6 +97,8 @@ const App = () => {
 
   const [appState, setAppState] = useReducer(reducer, initialState);
 
+  const [displayError, setDisplayError] = useState(false);
+
   const calcPriceDifference = (a, b) => {
     let percentageChange;
     let plusOrMinus;
@@ -105,6 +114,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    setDisplayError(false);
     initialState.allowFetches
       ? appState.currenciesFollowed.map((currency, index) => {
           axios
@@ -129,6 +139,10 @@ const App = () => {
                 history: res.data,
                 index: index,
               });
+            })
+            .catch((error) => {
+              console.log(error);
+              setDisplayError(true);
             });
         })
       : dummyResponse.map((currency, index) => {
@@ -149,6 +163,7 @@ const App = () => {
     <AppContext.Provider value={appState}>
       <div>
         <Header />
+        {displayError && <Error />}
         <Followed />
         <div className="app-bottom-row">
           <Portfolio />
