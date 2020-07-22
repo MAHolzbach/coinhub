@@ -10,7 +10,7 @@ import "./portfolio.scss";
 const Portfolio = () => {
   const context = useContext(AppContext);
   const currenciesFollowed = context.currenciesFollowed;
-  console.log(currenciesFollowed);
+
   const generateOptions = (currency) => {
     let options = {
       axisY: {
@@ -49,10 +49,12 @@ const Portfolio = () => {
     return options;
   };
 
+  const emptyHistory = (item) => item.history.length === 0;
+
   return (
     <div className="portfolio-wrapper">
       <p className="portfolio-wrapper__title">Portfolio</p>
-      {currenciesFollowed[5].history.length > 0
+      {currenciesFollowed.findIndex(emptyHistory) === -1
         ? currenciesFollowed.map((currency) => {
             return <CanvasJSChart options={generateOptions(currency)} />;
           })
