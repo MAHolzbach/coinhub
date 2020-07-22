@@ -1,5 +1,13 @@
 @import "../../index.scss";
 
+.portfolio-wrapper {
+  flex: 1;
+}
+
 .portfolio-wrapper__title {
   font-size: 24px;
+}
+
+.canvasjs-chart-credit {
+  display: none;
 }

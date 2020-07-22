@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
 import Portfolio from "../portfolio/Portfolio";
+import Recent from "../recent/Recent";
 import "./app.scss";
 import BitcoinIcon from "../../img/bitcoin-icon.png";
 import EthereumIcon from "../../img/ethereum-icon.png";
@@ -10,6 +11,8 @@ import LitecoinIcon from "../../img/litecoin-icon.png";
 import BitcoinCashIcon from "../../img/bitcoincash-icon.png";
 import RippleIcon from "../../img/ripple-icon.png";
 import EosIcon from "../../img/eos-icon.png";
+
+import dummyResponse from "../../../dummyResponse";
 
 export const AppContext = React.createContext(null);
 
@@ -23,8 +26,8 @@ const App = () => {
         assetId: "USD",
         icon: BitcoinIcon,
         price: "----.--",
-        plusOrMinus: "",
         percentChange: "-.--",
+        history: [],
       },
       {
         name: "Ethereum",
@@ -32,8 +35,8 @@ const App = () => {
         assetId: "USD",
         icon: EthereumIcon,
         price: "----.--",
-        plusOrMinus: "",
         percentChange: "-.--",
+        history: [],
       },
       {
         name: "Litecoin",
@@ -41,8 +44,8 @@ const App = () => {
         assetId: "USD",
         icon: LitecoinIcon,
         price: "----.--",
-        plusOrMinus: "",
         percentChange: "-.--",
+        history: [],
       },
       {
         name: "Bitcoin Cash",
@@ -50,8 +53,8 @@ const App = () => {
         assetId: "USD",
         icon: BitcoinCashIcon,
         price: "----.--",
-        plusOrMinus: "",
         percentChange: "-.--",
+        history: [],
       },
       {
         name: "Ripple (XRP)",
@@ -59,8 +62,8 @@ const App = () => {
         assetId: "USD",
         icon: RippleIcon,
         price: "----.--",
-        plusOrMinus: "",
         percentChange: "-.--",
+        history: [],
       },
       {
         name: "EOS",
@@ -68,8 +71,8 @@ const App = () => {
         assetId: "USD",
         icon: EosIcon,
         price: "----.--",
-        plusOrMinus: "",
         percentChange: "-.--",
+        history: [],
       },
     ],
   };
@@ -80,7 +83,7 @@ const App = () => {
         let newCurrencyArray = [...state.currenciesFollowed];
         newCurrencyArray[action.index].price = action.price;
         newCurrencyArray[action.index].percentChange = action.percentageChange;
-        newCurrencyArray[action.index].plusOrMinus = action.plusOrMinus;
+        newCurrencyArray[action.index].history = action.history;
         return { ...state };
     }
   };
@@ -102,11 +105,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    appState.currenciesFollowed.map((currency, index) => {
-      initialState.allowFetches
-        ? axios
+    initialState.allowFetches
+      ? appState.currenciesFollowed.map((currency, index) => {
+          axios
             .get(
-              `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=2`,
+              `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=7`,
               {
                 headers: {
                   "X-CoinAPI-Key": process.env.COINAPIKEY,
@@ -123,16 +126,23 @@ const App = () => {
                   res.data[0].price_close,
                   res.data[1].price_close
                 ),
+                history: res.data,
                 index: index,
               });
-            })
-        : setAppState({
+            });
+        })
+      : dummyResponse.map((currency, index) => {
+          setAppState({
             type: "updateValues",
-            price: 9251.44,
-            percentageChange: calcPriceDifference(9251.44, 9102.11),
+            price: currency[0].price_close,
+            percentageChange: calcPriceDifference(
+              currency[0].price_close,
+              currency[1].price_close
+            ),
+            history: currency,
             index: index,
           });
-    });
+        });
   }, []);
 
   return (
@@ -140,7 +150,10 @@ const App = () => {
       <div>
         <Header />
         <Followed />
-        <Portfolio />
+        <div className="app-bottom-row">
+          <Portfolio />
+          <Recent />
+        </div>
       </div>
     </AppContext.Provider>
   );
