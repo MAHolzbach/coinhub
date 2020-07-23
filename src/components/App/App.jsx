@@ -97,7 +97,7 @@ const App = () => {
 
   const [appState, setAppState] = useReducer(reducer, initialState);
 
-  const [displayError, setDisplayError] = useState(false);
+  const [displayError, setDisplayError] = useState(true);
 
   const calcPriceDifference = (a, b) => {
     let percentageChange;
@@ -111,6 +111,21 @@ const App = () => {
       ? ((percentageChange = calcDiff(a, b)), (plusOrMinus = "+"))
       : ((percentageChange = calcDiff(b, a)), (plusOrMinus = "-"));
     return { change: percentageChange.toFixed(2), plusOrMinus };
+  };
+
+  const loadDummyData = () => {
+    dummyResponse.map((currency, index) => {
+      setAppState({
+        type: "updateValues",
+        price: currency[0].price_close,
+        percentageChange: calcPriceDifference(
+          currency[0].price_close,
+          currency[1].price_close
+        ),
+        history: currency,
+        index: index,
+      });
+    });
   };
 
   useEffect(() => {
@@ -145,25 +160,14 @@ const App = () => {
               setDisplayError(true);
             });
         })
-      : dummyResponse.map((currency, index) => {
-          setAppState({
-            type: "updateValues",
-            price: currency[0].price_close,
-            percentageChange: calcPriceDifference(
-              currency[0].price_close,
-              currency[1].price_close
-            ),
-            history: currency,
-            index: index,
-          });
-        });
+      : loadDummyData();
   }, []);
 
   return (
     <AppContext.Provider value={appState}>
       <div>
         <Header />
-        {displayError && <Error />}
+        {displayError && <Error loadDummyData={loadDummyData} />}
         <Followed />
         <div className="app-bottom-row">
           <Portfolio />
