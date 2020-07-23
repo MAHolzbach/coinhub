@@ -2,3 +2,4 @@ node_modules
 dist
 .env
 CoinAPIAllAssets.json
+dummyResponse.js

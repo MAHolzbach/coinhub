@@ -1,0 +1,18 @@
+.error {
+  background-color: red;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 8px;
+  width: 800px;
+}
+.error__button {
+  border: none;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #3273dc;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

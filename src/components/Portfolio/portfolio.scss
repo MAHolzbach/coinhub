@@ -1,0 +1,20 @@
+@import "../../index.scss";
+
+.portfolio-wrapper {
+  flex: 1;
+  border-radius: 8px;
+}
+
+.portfolio-wrapper__row-wrapper {
+  border-radius: 8px;
+  background-color: $base-white;
+  padding: 18px 36px;
+}
+
+.portfolio-wrapper__title {
+  font-size: 24px;
+}
+
+.canvasjs-chart-credit {
+  display: none;
+}

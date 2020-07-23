@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { AppContext } from "../App/App";
 import CurrencyBox from "../CurrencyBox/CurrencyBox";
 import "./followed.scss";
+
+import { AppContext } from "../App/App";
 
 const Followed = () => {
   const context = useContext(AppContext);
