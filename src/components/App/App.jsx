@@ -12,6 +12,7 @@ import LitecoinIcon from "../../img/litecoin-icon.png";
 import BitcoinCashIcon from "../../img/bitcoincash-icon.png";
 import RippleIcon from "../../img/ripple-icon.png";
 import EosIcon from "../../img/eos-icon.png";
+import CrossedCircleIcon from "../../img/crossed-circle-icon.png";
 
 import dummyResponse from "../../../dummyResponse";
 
@@ -97,7 +98,7 @@ const App = () => {
 
   const [appState, setAppState] = useReducer(reducer, initialState);
 
-  const [displayError, setDisplayError] = useState(true);
+  const [displayError, setDisplayError] = useState(false);
 
   const calcPriceDifference = (a, b) => {
     let percentageChange;
@@ -171,7 +172,7 @@ const App = () => {
         <Followed />
         <div className="app-bottom-row">
           <Portfolio />
-          <Recent />
+          <Recent icon={CrossedCircleIcon} />
         </div>
       </div>
     </AppContext.Provider>

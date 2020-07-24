@@ -4,6 +4,40 @@
   flex: 0.66;
 }
 
-.recent-wrapper_title {
+.recent-wrapper__title {
   font-size: 24px;
+}
+
+.recent-wrapper__transactions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $base-white;
+  border-radius: 8px;
+  padding: 36px 24px;
+}
+
+.transactions__icon {
+  width: 60px;
+}
+
+.transactions__title {
+  font-size: 24px;
+}
+
+.transactions__text {
+  color: $mid-gray;
+  text-align: center;
+}
+
+.transactions__button {
+  border: none;
+  height: 50px;
+  width: 120px;
+  border-radius: 4px;
+  background-color: #3273dc;
+  color: white;
+  font-weight: 400;
+  cursor: pointer;
 }
