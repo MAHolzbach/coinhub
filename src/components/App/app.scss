@@ -1,5 +1,11 @@
+@import "../../index.scss";
+
 .app-bottom-row {
   display: flex;
+  flex-direction: column;
   padding: 0 36px;
-  flex-wrap: wrap;
+
+  @include desktop {
+    flex-direction: row;
+  }
 }

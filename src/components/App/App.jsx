@@ -29,7 +29,7 @@ const App = () => {
         icon: BitcoinIcon,
         price: "----.--",
         percentChange: "-.--",
-        quantity: 2.3412,
+        quantity: 2.341,
         history: [],
       },
       {
@@ -49,7 +49,7 @@ const App = () => {
         icon: LitecoinIcon,
         price: "----.--",
         percentChange: "-.--",
-        quantity: 5.3311,
+        quantity: 5.331,
         history: [],
       },
       {
@@ -79,7 +79,7 @@ const App = () => {
         icon: EosIcon,
         price: "----.--",
         percentChange: "-.--",
-        quantity: 22.1133,
+        quantity: 22.13,
         history: [],
       },
     ],
