@@ -4,8 +4,17 @@
   background-color: $base-white;
   border-radius: 8px;
   width: 400px;
+  min-width: 240px;
   padding: 24px;
   margin: 12px 24px;
+
+  @include tablet {
+    width: 200px;
+  }
+
+  @include desktop {
+    width: 400px;
+  }
 }
 
 .currency-box__header {

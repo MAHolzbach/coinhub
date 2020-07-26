@@ -3,13 +3,20 @@
 .portfolio-wrapper {
   flex: 0.9;
   border-radius: 8px;
-  margin-right: 24px;
+
+  @include desktop {
+    margin-right: 24px;
+  }
 }
 
 .portfolio-wrapper__row-wrapper {
   border-radius: 8px;
   background-color: $base-white;
-  padding: 18px 36px;
+  padding: 9px 18px;
+
+  @include desktop {
+    padding: 18px 36px;
+  }
 }
 
 .portfolio-wrapper__title {

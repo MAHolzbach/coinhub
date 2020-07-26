@@ -11,13 +11,23 @@
 }
 
 .chart-wrapper__name {
-  font-size: 18px;
-  margin: 0 24px;
-  flex: 1;
+  display: none;
+
+  @include tablet {
+    display: unset;
+    font-size: 18px;
+    margin: 0 24px;
+    flex: 1;
+  }
 }
 
 .chart-wrapper__chart {
-  flex: 1;
+  display: none;
+
+  @include tablet {
+    display: unset;
+    flex: 1;
+  }
 }
 
 .chart-wrapper__quantity,
