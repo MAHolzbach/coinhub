@@ -1,11 +1,15 @@
 import React, { useState, useReducer, useEffect } from "react";
 import axios from "axios";
+
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
 import Portfolio from "../portfolio/Portfolio";
 import Recent from "../recent/Recent";
 import Error from "../Error/Error";
+import Navbar from "../Navbar/Navbar";
+
 import "./app.scss";
+
 import BitcoinIcon from "../../img/bitcoin-icon.png";
 import EthereumIcon from "../../img/ethereum-icon.png";
 import LitecoinIcon from "../../img/litecoin-icon.png";
@@ -166,13 +170,16 @@ const App = () => {
 
   return (
     <AppContext.Provider value={appState}>
-      <div>
-        <Header />
-        {displayError && <Error loadDummyData={loadDummyData} />}
-        <Followed />
-        <div className="app-bottom-row">
-          <Portfolio />
-          <Recent icon={CrossedCircleIcon} />
+      <div className="app-wrapper">
+        <Navbar />
+        <div className="app-content">
+          <Header />
+          {displayError && <Error loadDummyData={loadDummyData} />}
+          <Followed />
+          <div className="app-bottom-row">
+            <Portfolio />
+            <Recent icon={CrossedCircleIcon} />
+          </div>
         </div>
       </div>
     </AppContext.Provider>
