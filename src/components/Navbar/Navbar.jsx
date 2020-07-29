@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const Navbar = () => {
-  const [isMobile, setIsMobile] = useState(null);
+  const [isMobile, setIsMobile] = useState();
 
   useEffect(() => {
     window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);

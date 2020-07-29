@@ -24,7 +24,7 @@ export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
-    allowFetches: false,
+    allowFetches: true,
     currenciesFollowed: [
       {
         name: "Bitcoin",
@@ -119,6 +119,7 @@ const App = () => {
   };
 
   const loadDummyData = () => {
+    setDisplayError(false);
     dummyResponse.map((currency, index) => {
       setAppState({
         type: "updateValues",
@@ -139,24 +140,25 @@ const App = () => {
       ? appState.currenciesFollowed.map((currency, index) => {
           axios
             .get(
-              `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=7`,
-              {
-                headers: {
-                  "X-CoinAPI-Key": process.env.COINAPIKEY,
-                  Accept: "application/json",
-                },
-              }
+              // `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=7`,
+              // {
+              //   headers: {
+              //     "X-CoinAPI-Key": process.env.COINAPIKEY,
+              //     Accept: "application/json",
+              //   },
+              // }
+              process.env.COINSERVICEURL
             )
             .then((res) => {
-              console.log("RES.DATA:", res.data);
+              console.log("RES.DATA.BODY:", res.data.body);
               setAppState({
                 type: "updateValues",
-                price: res.data[0].price_close,
+                price: res.data.body[0].price_close,
                 percentageChange: calcPriceDifference(
-                  res.data[0].price_close,
-                  res.data[1].price_close
+                  res.data.body[0].price_close,
+                  res.data.body[1].price_close
                 ),
-                history: res.data,
+                history: res.data.body[index],
                 index: index,
               });
             })
