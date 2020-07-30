@@ -139,7 +139,7 @@ const App = () => {
     initialState.allowFetches
       ? appState.currenciesFollowed.map((currency, index) => {
           axios
-            .get(
+            .post(
               // `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=7`,
               // {
               //   headers: {
@@ -147,18 +147,26 @@ const App = () => {
               //     Accept: "application/json",
               //   },
               // }
-              process.env.COINSERVICEURL
+              process.env.COINSERVICEURL,
+              {
+                coinId: currency.coinId,
+                assetId: currency.assetId,
+              }
             )
             .then((res) => {
               console.log("RES.DATA.BODY:", res.data.body);
+              const todaysClose = res.data.body[index][0].price_close;
+              const yesterdaysClose = res.data.body[index][1].price_close;
+              const sevenDayHistory = res.data.body[index];
+
               setAppState({
                 type: "updateValues",
-                price: res.data.body[0].price_close,
+                price: todaysClose,
                 percentageChange: calcPriceDifference(
-                  res.data.body[0].price_close,
-                  res.data.body[1].price_close
+                  todaysClose,
+                  yesterdaysClose
                 ),
-                history: res.data.body[index],
+                history: sevenDayHistory,
                 index: index,
               });
             })

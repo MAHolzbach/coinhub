@@ -9,6 +9,7 @@ const Followed = () => {
   const currenciesFollowed = context.currenciesFollowed;
 
   const renderFollowedCurrencies = () => {
+    console.log(currenciesFollowed);
     return (
       <>
         {currenciesFollowed.map((currency) => (
