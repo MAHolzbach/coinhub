@@ -1,11 +1,15 @@
 import React, { useState, useReducer, useEffect } from "react";
 import axios from "axios";
+
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
 import Portfolio from "../portfolio/Portfolio";
 import Recent from "../recent/Recent";
 import Error from "../Error/Error";
+import Navbar from "../Navbar/Navbar";
+
 import "./app.scss";
+
 import BitcoinIcon from "../../img/bitcoin-icon.png";
 import EthereumIcon from "../../img/ethereum-icon.png";
 import LitecoinIcon from "../../img/litecoin-icon.png";
@@ -14,13 +18,11 @@ import RippleIcon from "../../img/ripple-icon.png";
 import EosIcon from "../../img/eos-icon.png";
 import CrossedCircleIcon from "../../img/crossed-circle-icon.png";
 
-import dummyResponse from "../../../dummyResponse";
-
 export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
-    allowFetches: false,
+    allowFetches: true,
     currenciesFollowed: [
       {
         name: "Bitcoin",
@@ -115,16 +117,19 @@ const App = () => {
   };
 
   const loadDummyData = () => {
-    dummyResponse.map((currency, index) => {
-      setAppState({
-        type: "updateValues",
-        price: currency[0].price_close,
-        percentageChange: calcPriceDifference(
-          currency[0].price_close,
-          currency[1].price_close
-        ),
-        history: currency,
-        index: index,
+    setDisplayError(false);
+    axios.get(process.env.COINSERVICEDUMMYDATAURL).then((res) => {
+      res.data.body.map((currency, index) => {
+        setAppState({
+          type: "updateValues",
+          price: currency[0].price_close,
+          percentageChange: calcPriceDifference(
+            currency[0].price_close,
+            currency[1].price_close
+          ),
+          history: currency,
+          index: index,
+        });
       });
     });
   };
@@ -134,25 +139,23 @@ const App = () => {
     initialState.allowFetches
       ? appState.currenciesFollowed.map((currency, index) => {
           axios
-            .get(
-              `https://rest.coinapi.io/v1/ohlcv/${currency.coinId}/${currency.assetId}/latest?period_id=1DAY&limit=7`,
-              {
-                headers: {
-                  "X-CoinAPI-Key": process.env.COINAPIKEY,
-                  Accept: "application/json",
-                },
-              }
-            )
+            .post(process.env.COINSERVICEURL, {
+              coinId: currency.coinId,
+              assetId: currency.assetId,
+            })
             .then((res) => {
-              console.log("RES.DATA:", res.data);
+              const todaysClose = res.data.body[0].price_close;
+              const yesterdaysClose = res.data.body[1].price_close;
+              const sevenDayHistory = res.data.body;
+
               setAppState({
                 type: "updateValues",
-                price: res.data[0].price_close,
+                price: todaysClose,
                 percentageChange: calcPriceDifference(
-                  res.data[0].price_close,
-                  res.data[1].price_close
+                  todaysClose,
+                  yesterdaysClose
                 ),
-                history: res.data,
+                history: sevenDayHistory,
                 index: index,
               });
             })
@@ -166,13 +169,16 @@ const App = () => {
 
   return (
     <AppContext.Provider value={appState}>
-      <div>
-        <Header />
-        {displayError && <Error loadDummyData={loadDummyData} />}
-        <Followed />
-        <div className="app-bottom-row">
-          <Portfolio />
-          <Recent icon={CrossedCircleIcon} />
+      <div className="app-wrapper">
+        <Navbar />
+        <div className="app-content">
+          <Header />
+          {displayError && <Error loadDummyData={loadDummyData} />}
+          <Followed />
+          <div className="app-bottom-row">
+            <Portfolio />
+            <Recent icon={CrossedCircleIcon} />
+          </div>
         </div>
       </div>
     </AppContext.Provider>
