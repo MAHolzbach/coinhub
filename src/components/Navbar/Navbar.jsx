@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState();
 
+  const willMount = useRef(true);
   useEffect(() => {
+    console.log(willMount);
     window.innerWidth >= 768 ? setIsMobile(false) : setIsMobile(true);
-  }, []);
+  }, [setIsMobile]);
 
-  window.addEventListener("resize", function () {
+  window.addEventListener("resize", () => {
     let timeout = false;
     let delay = 250;
 
