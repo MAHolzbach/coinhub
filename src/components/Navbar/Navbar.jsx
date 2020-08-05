@@ -6,16 +6,9 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  window.addEventListener("resize", () => {
-    let timeout = false;
-    let delay = 250;
-
-    clearTimeout(timeout);
-
-    timeout = setTimeout(() => {
-      window.innerWidth >= 1024 ? setIsMobile(false) : setIsMobile(true);
-    }, delay);
-  });
+  window.addEventListener("resize", () =>
+    window.innerWidth >= 1024 ? setIsMobile(false) : setIsMobile(true)
+  );
 
   const renderDesktopNav = () => {
     return (
@@ -47,10 +40,18 @@ const Navbar = () => {
 
   const renderBurger = () => {
     return (
-      <div className="burger-wrapper" onClick={() => setMenuOpen(!menuOpen)}>
-        <div className="burger-patty"></div>
-        <div className="burger-patty"></div>
-        <div className="burger-patty"></div>
+      <div
+        className="burger-wrapper"
+        onClick={() => setMenuOpen(!menuOpen)}
+        onDoubleClick={() => setMenuOpen(!menuOpen)}
+      >
+        <div className={`burger-patty ${menuOpen ? "top-patty-x" : ""}`}></div>
+        <div
+          className={`burger-patty ${menuOpen ? "middle-patty-x" : ""}`}
+        ></div>
+        <div
+          className={`burger-patty ${menuOpen ? "bottom-patty-x " : ""}`}
+        ></div>
       </div>
     );
   };

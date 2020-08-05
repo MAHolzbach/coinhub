@@ -32,3 +32,17 @@
   position: relative;
   transform-origin: 1px;
 }
+
+.top-patty-x {
+  opacity: 0%;
+}
+
+.middle-patty-x {
+  transform-origin: center;
+  transform: translateY(7px) rotate(-45deg);
+}
+
+.bottom-patty-x {
+  transform-origin: center;
+  transform: translateY(-4px) rotate(45deg);
+}
