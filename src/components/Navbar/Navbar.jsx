@@ -6,19 +6,33 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  window.addEventListener("resize", () =>
-    window.innerWidth >= 1024 ? setIsMobile(false) : setIsMobile(true)
-  );
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1024) {
+      setIsMobile(false);
+      setMenuOpen(false);
+    } else {
+      setIsMobile(true);
+    }
+  });
 
   const renderDesktopNav = () => {
     return (
       <div className="desktop-nav">
-        <p>DESKTOP</p>
-        <p className="desktop-nav__link">Dashboard</p>
-        <p className="desktop-nav__link">Buy/Sell</p>
-        <p className="desktop-nav__link">Account</p>
-        <p className="desktop-nav__link">Tools</p>
-        <p className="desktop-nav__link">Settings</p>
+        <div className="desktop-nav__link">
+          <p>Dashboard</p>
+        </div>
+        <div className="desktop-nav__link">
+          <p>Buy/Sell</p>
+        </div>
+        <div className="desktop-nav__link">
+          <p>Account</p>
+        </div>
+        <div className="desktop-nav__link">
+          <p>Tools</p>
+        </div>
+        <div className="desktop-nav__link">
+          <p>Settings</p>
+        </div>
       </div>
     );
   };
@@ -27,12 +41,21 @@ const Navbar = () => {
     return (
       menuOpen && (
         <div className="mobile-nav">
-          <p>MOBILE</p>
-          <p className="mobile-nav__link">Dashboard</p>
-          <p className="mobile-nav__link">Buy/Sell</p>
-          <p className="mobile-nav__link">Account</p>
-          <p className="mobile-nav__link">Tools</p>
-          <p className="mobile-nav__link">Settings</p>
+          <div className="mobile-nav__link">
+            <p>Dashboard</p>
+          </div>
+          <div className="mobile-nav__link">
+            <p>Buy/Sell</p>
+          </div>
+          <div className="mobile-nav__link">
+            <p>Account</p>
+          </div>
+          <div className="mobile-nav__link">
+            <p>Tools</p>
+          </div>
+          <div className="mobile-nav__link">
+            <p>Settings</p>
+          </div>
         </div>
       )
     );
@@ -57,7 +80,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar-wrapper">
+    <div className={`navbar-wrapper ${menuOpen ? "navbar-wrapper--open" : ""}`}>
       {isMobile ? renderBurger() : renderDesktopNav()}
       {menuOpen && renderMobileNav()}
     </div>
