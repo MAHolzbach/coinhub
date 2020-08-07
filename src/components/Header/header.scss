@@ -1,1 +1,46 @@
+@import "../../index.scss";
 
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @include desktop {
+    padding-top: 27px;
+    padding-right: 36px;
+  }
+}
+
+.header-wrapper__icon {
+  width: 20px;
+  margin-right: 4px;
+
+  @include desktop {
+    margin-right: 16px;
+  }
+}
+
+.header-wrapper__user-icon {
+  width: 40px;
+
+  @include desktop {
+    width: 60px;
+  }
+}
+
+.user-info__text {
+  color: $text-black;
+}
+
+.user-info__name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 12px;
+  margin: 0;
+}
+
+.user-info__title {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 2px 0;
+}
