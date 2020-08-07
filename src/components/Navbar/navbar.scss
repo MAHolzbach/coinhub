@@ -2,6 +2,17 @@
 
 .navbar-wrapper {
   background-color: $base-gray;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 36px;
+  align-items: center;
+
+  @include desktop {
+    flex-direction: column;
+    justify-content: unset;
+    padding: unset;
+    align-items: unset;
+  }
 }
 
 .navbar-wrapper--open {
@@ -12,15 +23,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  order: 1;
+
+  @include desktop {
+    margin-top: 28px;
+    order: 0;
+  }
+}
+
+.coinhub-logo__img {
+  width: 60px;
+
+  @include desktop {
+    width: 100px;
+  }
 }
 
 .coinhub-logo__name {
   font-family: "Exo", sans-serif;
   color: $active-blue;
-}
+  display: none;
 
-.coinhub-logo__img {
-  width: 100px;
+  @include desktop {
+    display: block;
+  }
 }
 
 .nav-icon {
@@ -44,14 +70,18 @@
 
 .mobile-nav__link {
   width: 100%;
-  text-align: center;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin-left: 54px;
 
   &:hover {
-    background-color: $mid-gray;
     cursor: pointer;
-    color: white;
   }
+}
+
+.mobile-nav--active {
+  color: $active-blue;
 }
 
 .burger-wrapper {
@@ -65,7 +95,6 @@
   cursor: pointer;
   padding: 0;
   z-index: 10;
-  margin: 18px 36px;
   &:focus {
     outline: none;
   }

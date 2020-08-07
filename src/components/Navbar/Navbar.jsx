@@ -54,19 +54,13 @@ const Navbar = () => {
   const renderNav = (type) => {
     return (
       <div className={`${type}-nav`}>
-        {type === "desktop" ? (
-          <div className="coinhub-logo">
-            <img src={CoinhubLogo} className="coinhub-logo__img"></img>
-            <h2 className="coinhub-logo__name">CoinHub</h2>
-          </div>
-        ) : (
-          ""
-        )}
         {navLinks.map((link) => (
           <div
             key={link.key}
             className={`${type}-nav__link ${
-              activeLink === link.key ? "desktop-nav--active" : ""
+              activeLink === link.key
+                ? `${type === "desktop" ? "desktop" : "mobile"}-nav--active`
+                : ""
             }`}
           >
             <img
@@ -102,8 +96,16 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`navbar-wrapper ${menuOpen ? "navbar-wrapper--open" : ""}`}>
-      {isMobile ? renderBurger() : renderNav("desktop")}
+    <div>
+      <div
+        className={`navbar-wrapper ${menuOpen ? "navbar-wrapper--open" : ""}`}
+      >
+        <div className="coinhub-logo">
+          <img src={CoinhubLogo} className="coinhub-logo__img"></img>
+          <h2 className="coinhub-logo__name">CoinHub</h2>
+        </div>
+        {isMobile ? renderBurger() : renderNav("desktop")}
+      </div>
       {menuOpen && renderNav("mobile")}
     </div>
   );
