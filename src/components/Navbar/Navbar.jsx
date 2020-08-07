@@ -9,7 +9,7 @@ import ToolsIcon from "../../img/tools-icon.png";
 import SettingsIcon from "../../img/settings-icon.png";
 import CoinhubLogo from "../../img/coinhub-logo.png";
 
-const Navbar = () => {
+const Navbar = ({ children }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("dashboard");
@@ -105,6 +105,7 @@ const Navbar = () => {
           <h2 className="coinhub-logo__name">CoinHub</h2>
         </div>
         {isMobile ? renderBurger() : renderNav("desktop")}
+        {children}
       </div>
       {menuOpen && renderNav("mobile")}
     </div>

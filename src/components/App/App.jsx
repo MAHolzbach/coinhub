@@ -22,7 +22,7 @@ export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
-    allowFetches: false,
+    allowFetches: true,
     currenciesFollowed: [
       {
         name: "Bitcoin",
@@ -101,6 +101,17 @@ const App = () => {
   const [appState, setAppState] = useReducer(reducer, initialState);
 
   const [displayError, setDisplayError] = useState(false);
+  const [renderMobileHeader, setRenderMobileHeader] = useState(
+    window.innerWidth < 1024
+  );
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1024) {
+      setRenderMobileHeader(false);
+    } else {
+      setRenderMobileHeader(true);
+    }
+  });
 
   const calcPriceDifference = (a, b) => {
     let percentageChange;
@@ -170,9 +181,9 @@ const App = () => {
   return (
     <AppContext.Provider value={appState}>
       <div className="app-wrapper">
-        <Navbar />
+        <Navbar>{renderMobileHeader && <Header />}</Navbar>
         <div className="app-content">
-          <Header />
+          {renderMobileHeader === false && <Header />}
           {displayError && <Error loadDummyData={loadDummyData} />}
           <Followed />
           <div className="app-bottom-row">
