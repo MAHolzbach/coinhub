@@ -1,1 +1,147 @@
 @import "../../index.scss";
+
+.navbar-wrapper {
+  background-color: $base-gray;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 36px;
+  align-items: center;
+
+  @include desktop {
+    flex-direction: column;
+    justify-content: unset;
+    padding: unset;
+    align-items: unset;
+  }
+}
+
+.navbar-wrapper--open {
+  background-color: darken($base-gray, 10%);
+}
+
+.coinhub-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  order: 1;
+
+  @include desktop {
+    margin-top: 28px;
+    order: 0;
+  }
+}
+
+.coinhub-logo__img {
+  width: 60px;
+
+  @include desktop {
+    width: 100px;
+  }
+}
+
+.coinhub-logo__name {
+  font-family: "Exo", sans-serif;
+  color: $active-blue;
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
+}
+
+.nav-icon {
+  height: 18px;
+  margin: 0 12px;
+}
+
+.nav-icon--active {
+  filter: invert(23%) sepia(86%) saturate(3406%) hue-rotate(220deg)
+    brightness(100%) contrast(101%);
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: darken($base-gray, 10%);
+  position: absolute;
+  width: 100%;
+}
+
+.mobile-nav__link {
+  width: 100%;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin-left: 54px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.mobile-nav--active {
+  color: $active-blue;
+}
+
+.burger-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  &:focus {
+    outline: none;
+  }
+}
+
+.burger-patty {
+  width: 2rem;
+  height: 0.25rem;
+  background: $mid-gray;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.top-patty-x {
+  opacity: 0%;
+}
+
+.middle-patty-x {
+  transform-origin: center;
+  transform: translateY(7px) rotate(-45deg);
+}
+
+.bottom-patty-x {
+  transform-origin: center;
+  transform: translateY(-4px) rotate(45deg);
+}
+
+.desktop-nav {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+}
+
+.desktop-nav__link {
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: $active-blue;
+  }
+}
+
+.desktop-nav--active {
+  color: $active-blue;
+  border-bottom: 2px solid $active-blue;
+}

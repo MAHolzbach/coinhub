@@ -1,8 +1,13 @@
 @import "../../index.scss";
 
 .app-wrapper {
-  display: grid;
-  grid-template-columns: minmax(150px, 10%) 1fr;
+  display: flex;
+  flex-direction: column;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: minmax(200px, 10%) 1fr;
+  }
 }
 
 .app-bottom-row {
