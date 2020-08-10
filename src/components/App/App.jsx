@@ -150,11 +150,11 @@ const App = () => {
       .catch((error) => console.log("ERROR FETCHING DUMMY DATA:", error));
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     setDisplayError(false);
     initialState.allowFetches
       ? appState.currenciesFollowed.map((currency, index) => {
-          axios
+          await axios
             .post(
               "https://mn29ck6cnk.execute-api.us-east-1.amazonaws.com/dev/coindata",
               {
