@@ -130,7 +130,9 @@ const App = () => {
   const loadDummyData = () => {
     setDisplayError(false);
     axios
-      .get(process.env.COINSERVICEDUMMYDATAURL)
+      .get(
+        "https://mn29ck6cnk.execute-api.us-east-1.amazonaws.com/dev/dummyData"
+      )
       .then((res) => {
         res.data.body.map((currency, index) => {
           setAppState({
@@ -153,10 +155,13 @@ const App = () => {
     initialState.allowFetches
       ? appState.currenciesFollowed.map((currency, index) => {
           axios
-            .post(process.env.COINSERVICEURL, {
-              coinId: currency.coinId,
-              assetId: currency.assetId,
-            })
+            .post(
+              "https://mn29ck6cnk.execute-api.us-east-1.amazonaws.com/dev/coindata",
+              {
+                coinId: currency.coinId,
+                assetId: currency.assetId,
+              }
+            )
             .then((res) => {
               const todaysClose = res.data.body[0].price_close;
               const yesterdaysClose = res.data.body[1].price_close;
