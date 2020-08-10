@@ -129,20 +129,23 @@ const App = () => {
 
   const loadDummyData = () => {
     setDisplayError(false);
-    axios.get(process.env.COINSERVICEDUMMYDATAURL).then((res) => {
-      res.data.body.map((currency, index) => {
-        setAppState({
-          type: "updateValues",
-          price: currency[0].price_close,
-          percentageChange: calcPriceDifference(
-            currency[0].price_close,
-            currency[1].price_close
-          ),
-          history: currency,
-          index: index,
+    axios
+      .get(process.env.COINSERVICEDUMMYDATAURL)
+      .then((res) => {
+        res.data.body.map((currency, index) => {
+          setAppState({
+            type: "updateValues",
+            price: currency[0].price_close,
+            percentageChange: calcPriceDifference(
+              currency[0].price_close,
+              currency[1].price_close
+            ),
+            history: currency,
+            index: index,
+          });
         });
-      });
-    });
+      })
+      .catch((error) => console.log("ERROR FETCHING DUMMY DATA:", error));
   };
 
   useEffect(() => {
@@ -171,7 +174,7 @@ const App = () => {
               });
             })
             .catch((error) => {
-              console.log(error);
+              console.log("ERROR FETCHING COINAPI DATA:", error);
               setDisplayError(true);
             });
         })
