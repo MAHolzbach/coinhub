@@ -3,8 +3,8 @@ import axios from "axios";
 
 import Header from "../Header/Header";
 import Followed from "../Followed/Followed";
-import Portfolio from "../portfolio/Portfolio";
-import Recent from "../recent/Recent";
+import Portfolio from "../Portfolio/Portfolio";
+import Recent from "../Recent/Recent";
 import Error from "../Error/Error";
 import Navbar from "../Navbar/Navbar";
 
