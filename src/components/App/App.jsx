@@ -153,8 +153,8 @@ const App = () => {
   useEffect(() => {
     setDisplayError(false);
     initialState.allowFetches
-      ? appState.currenciesFollowed.map(async (currency, index) => {
-          await axios
+      ? appState.currenciesFollowed.map((currency, index) => {
+          axios
             .post(
               "https://mn29ck6cnk.execute-api.us-east-1.amazonaws.com/dev/coindata",
               {
