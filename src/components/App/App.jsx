@@ -100,7 +100,7 @@ const App = () => {
 
   const [appState, setAppState] = useReducer(reducer, initialState);
 
-  const [displayError, setDisplayError] = useState(true);
+  const [displayError, setDisplayError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [renderMobileHeader, setRenderMobileHeader] = useState(
     window.innerWidth < 1024
