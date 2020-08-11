@@ -22,7 +22,7 @@ export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
-    allowFetches: false,
+    allowFetches: true,
     currenciesFollowed: [
       {
         name: "Bitcoin",
