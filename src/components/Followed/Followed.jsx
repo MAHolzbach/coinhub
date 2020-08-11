@@ -13,6 +13,7 @@ const Followed = () => {
       <>
         {currenciesFollowed.map((currency) => (
           <CurrencyBox
+            key={currency.name}
             currency={currency.name}
             icon={currency.icon}
             price={currency.price}

@@ -2,6 +2,9 @@ import React from "react";
 import "./currency-box.scss";
 
 const CurrencyBox = ({ currency, icon, price, percentChange }) => {
+  if (price >= 1) {
+    price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <div className="currency-box">
       <div className="currency-box__header">

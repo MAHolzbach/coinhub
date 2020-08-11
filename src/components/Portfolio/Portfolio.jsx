@@ -61,6 +61,7 @@ const Portfolio = () => {
           ? currenciesFollowed.map((currency) => {
               return (
                 <PortfolioRow
+                  key={currency.name}
                   options={generateOptions(currency)}
                   icon={currency.icon}
                   name={currency.name}

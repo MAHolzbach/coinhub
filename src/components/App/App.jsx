@@ -22,7 +22,7 @@ export const AppContext = React.createContext(null);
 
 const App = () => {
   const initialState = {
-    allowFetches: true,
+    allowFetches: false,
     currenciesFollowed: [
       {
         name: "Bitcoin",
@@ -100,7 +100,8 @@ const App = () => {
 
   const [appState, setAppState] = useReducer(reducer, initialState);
 
-  const [displayError, setDisplayError] = useState(false);
+  const [displayError, setDisplayError] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
   const [renderMobileHeader, setRenderMobileHeader] = useState(
     window.innerWidth < 1024
   );
@@ -129,6 +130,7 @@ const App = () => {
 
   const loadDummyData = () => {
     setDisplayError(false);
+    setErrorMsg("");
     axios
       .get(
         "https://mn29ck6cnk.execute-api.us-east-1.amazonaws.com/dev/dummyData"
@@ -147,11 +149,18 @@ const App = () => {
           });
         });
       })
-      .catch((error) => console.log("ERROR FETCHING DUMMY DATA:", error));
+      .catch((error) => {
+        setDisplayError(true);
+        setErrorMsg(
+          "That had a problem too. The AWS Lambda has returned an error."
+        );
+        console.log("ERROR FETCHING DUMMY DATA:", error);
+      });
   };
 
   useEffect(() => {
     setDisplayError(false);
+    setErrorMsg("");
     initialState.allowFetches
       ? appState.currenciesFollowed.map((currency, index) => {
           axios
@@ -181,6 +190,9 @@ const App = () => {
             .catch((error) => {
               console.log("ERROR FETCHING COINAPI DATA:", error);
               setDisplayError(true);
+              setErrorMsg(
+                "You've hit some kind of error. Most likely the daily API limit of 100 calls has been reached! Hit the button below to load some dummy data."
+              );
             });
         })
       : loadDummyData();
@@ -192,7 +204,9 @@ const App = () => {
         <Navbar>{renderMobileHeader && <Header />}</Navbar>
         <div className="app-content">
           {renderMobileHeader === false && <Header />}
-          {displayError && <Error loadDummyData={loadDummyData} />}
+          {displayError && (
+            <Error loadDummyData={loadDummyData} errorMsg={errorMsg} />
+          )}
           <Followed />
           <div className="app-bottom-row">
             <Portfolio />
