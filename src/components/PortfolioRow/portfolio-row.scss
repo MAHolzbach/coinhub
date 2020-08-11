@@ -28,6 +28,14 @@
     display: unset;
     flex: 1;
   }
+
+  @include desktop {
+    display: none;
+  }
+
+  @include chartHandler {
+    display: unset;
+  }
 }
 
 .chart-wrapper__quantity,

@@ -14,7 +14,8 @@ const PortfolioRow = ({ options, icon, name, quantity, coinId, price }) => {
       </div>
       <p className="chart-wrapper__quantity">{`${quantity} ${coinId}`}</p>
       <p className="chart-wrapper__value">
-        {"$" + (price * quantity).toFixed(2)}
+        {"$" +
+          (price * quantity).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       </p>
     </div>
   );

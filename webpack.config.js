@@ -34,7 +34,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: "./src/index.html" }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      favicon: "./src/img/favicon.png",
+    }),
     new MiniCssExtractPlugin({ filename: "[name].[hash].css" }),
     new Dotenv(),
   ],

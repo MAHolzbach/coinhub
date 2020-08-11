@@ -1,18 +1,28 @@
+@import "../../index.scss";
+
 .error {
-  background-color: red;
-  color: #ffffff;
+  color: $solid-black;
+  background-color: $error-red;
   text-align: center;
-  margin: 0 auto;
+  margin: 16px auto;
   padding: 8px;
+  border: red 1px solid;
   border-radius: 8px;
-  width: 800px;
+  width: 70%;
+  box-shadow: 0px 5px 15px black;
 }
 .error__button {
   border: none;
-  height: 30px;
+  height: 40px;
+  width: 220px;
   border-radius: 4px;
-  background-color: #3273dc;
+  background-color: $active-blue;
   color: white;
   font-weight: bold;
   cursor: pointer;
+  font-size: 15px;
+
+  &:hover {
+    background-color: darken($active-blue, 10%);
+  }
 }

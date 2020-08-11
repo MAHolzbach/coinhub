@@ -4,8 +4,10 @@
 $base-gray: #f1f4ff;
 $mid-gray: #9b9b9b;
 $text-black: #464849;
+$solid-black: #000000;
 $base-white: #ffffff;
 $active-blue: #115cff;
+$error-red: #ffbaba;
 
 $phone: 640px;
 $tablet: 768px;
@@ -25,6 +27,12 @@ $desktop: 1024px;
 
 @mixin desktop {
   @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin chartHandler {
+  @media (min-width: 1600px) {
     @content;
   }
 }

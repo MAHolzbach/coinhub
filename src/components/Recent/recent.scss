@@ -36,8 +36,13 @@
   height: 50px;
   width: 120px;
   border-radius: 4px;
-  background-color: #3273dc;
+  background-color: $active-blue;
   color: white;
-  font-weight: 400;
+  font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
+
+  &:hover {
+    background-color: darken($active-blue, 10%);
+  }
 }
