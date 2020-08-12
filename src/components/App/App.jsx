@@ -105,6 +105,7 @@ const App = () => {
   const [renderMobileHeader, setRenderMobileHeader] = useState(
     window.innerWidth < 1024
   );
+  const [showSpinner, setShowSpinner] = useState(true);
 
   window.addEventListener("resize", () => {
     if (window.innerWidth >= 1024) {
@@ -129,6 +130,7 @@ const App = () => {
   };
 
   const loadDummyData = () => {
+    setShowSpinner(true);
     setDisplayError(false);
     setErrorMsg("");
     axios
@@ -136,6 +138,7 @@ const App = () => {
         "https://mn29ck6cnk.execute-api.us-east-1.amazonaws.com/dev/dummyData"
       )
       .then((res) => {
+        setShowSpinner(false);
         res.data.body.map((currency, index) => {
           setAppState({
             type: "updateValues",
@@ -154,6 +157,7 @@ const App = () => {
         setErrorMsg(
           "That had a problem too. The AWS Lambda has returned an error."
         );
+        setShowSpinner(false);
         console.log("ERROR FETCHING DUMMY DATA:", error);
       });
   };
@@ -172,6 +176,7 @@ const App = () => {
               }
             )
             .then((res) => {
+              setShowSpinner(false);
               const todaysClose = res.data.body[0].price_close;
               const yesterdaysClose = res.data.body[1].price_close;
               const sevenDayHistory = res.data.body;
@@ -193,13 +198,14 @@ const App = () => {
               setErrorMsg(
                 "You've hit some kind of error. Most likely the daily API limit of 100 calls has been reached! Hit the button below to load some dummy data."
               );
+              setShowSpinner(false);
             });
         })
       : loadDummyData();
   }, []);
 
   return (
-    <AppContext.Provider value={appState}>
+    <AppContext.Provider value={{ appState, showSpinner }}>
       <div className="app-wrapper">
         <Navbar>{renderMobileHeader && <Header />}</Navbar>
         <div className="app-content">
