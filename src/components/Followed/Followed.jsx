@@ -6,7 +6,8 @@ import { AppContext } from "../App/App";
 
 const Followed = () => {
   const context = useContext(AppContext);
-  const currenciesFollowed = context.currenciesFollowed;
+  const currenciesFollowed = context.appState.currenciesFollowed;
+  const showSpinner = context.showSpinner;
 
   const renderFollowedCurrencies = () => {
     return (
@@ -18,6 +19,7 @@ const Followed = () => {
             icon={currency.icon}
             price={currency.price}
             percentChange={currency.percentChange}
+            showSpinner={showSpinner}
           />
         ))}
       </>

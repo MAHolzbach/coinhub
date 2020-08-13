@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
 import PortfolioRow from "../PortfolioRow/PortfolioRow";
 
+import Spinner from "../Spinner/Spinner";
+
 import { AppContext } from "../App/App";
 
 import "./portfolio.scss";
 
 const Portfolio = () => {
   const context = useContext(AppContext);
-  const currenciesFollowed = context.currenciesFollowed;
+  const currenciesFollowed = context.appState.currenciesFollowed;
+  const showSpinner = context.showSpinner;
 
   const generateOptions = (currency) => {
     let options = {
@@ -57,21 +60,25 @@ const Portfolio = () => {
     <div className="portfolio-wrapper">
       <p className="portfolio-wrapper__title">Portfolio</p>
       <div className="portfolio-wrapper__row-wrapper">
-        {currenciesFollowed.findIndex(emptyHistory) === -1
-          ? currenciesFollowed.map((currency) => {
-              return (
-                <PortfolioRow
-                  key={currency.name}
-                  options={generateOptions(currency)}
-                  icon={currency.icon}
-                  name={currency.name}
-                  quantity={currency.quantity}
-                  coinId={currency.coinId}
-                  price={currency.history[0].price_close}
-                />
-              );
-            })
-          : ""}
+        {currenciesFollowed.findIndex(emptyHistory) === -1 ? (
+          currenciesFollowed.map((currency) => {
+            return (
+              <PortfolioRow
+                key={currency.name}
+                options={generateOptions(currency)}
+                icon={currency.icon}
+                name={currency.name}
+                quantity={currency.quantity}
+                coinId={currency.coinId}
+                price={currency.history[0].price_close}
+              />
+            );
+          })
+        ) : showSpinner ? (
+          <Spinner />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
